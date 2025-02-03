@@ -1,16 +1,35 @@
-import React from "react";
-import { Image, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+import React, { useState } from "react";
+import {
+    KeyboardAvoidingView, 
+    Platform, 
+    StyleSheet,
+     View 
+} from "react-native";
 import { CustomInput } from "../utils/CustomInput";
+import { loginService } from "../../service/auth";
+import { LoginFormType } from "../../types/auth/auth";
+import { CustomButton } from "../utils/CustomButton";
 
 const styles = StyleSheet.create({
     container: {
         width: '90%',
-        height: 120,
+        height: 180,
         justifyContent: 'space-around',
-    }
+    },
 })
 
 export const LoginForm = () => {
+    const [user, setUser] = useState('');
+    const [password, setPassword] = useState('');
+
+    const login = async () => {
+        await loginService({user, password} as LoginFormType).then((response) => {
+            alert(response.message)
+        }).catch((error) => {
+            alert(error);
+        })
+    }
+
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -18,8 +37,13 @@ export const LoginForm = () => {
             keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
         >
             <View style={styles.container}>
-                <CustomInput placeholder="User"/>
-                <CustomInput placeholder="Password"/>
+                <CustomInput value={user} setValue={setUser} placeholder="User"/>
+                <CustomInput value={password} setValue={setPassword} placeholder="Password"/>
+                <CustomButton
+                    method={login}
+                    label="Login"
+                    style={{width: '100%', height: 40, background: '#00D4FF', labelColor: '#fff'}}
+                />
             </View>
         </KeyboardAvoidingView>
     )

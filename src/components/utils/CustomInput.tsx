@@ -1,9 +1,13 @@
 import {useEffect, useState} from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { NativeSyntheticEvent, StyleSheet, TextInput, TextInputFocusEventData } from "react-native";
 import { CustomInputProps } from "../../types/customs";
 
-export const CustomInput = ({placeholder}: CustomInputProps) => {
+export const CustomInput = ({placeholder, value, setValue}: CustomInputProps) => {
     const [focus, setFocus] = useState(false);
+
+    const blur = () => {
+        setFocus(false);
+    }
 
     const styles = StyleSheet.create({
         input: {
@@ -22,6 +26,6 @@ export const CustomInput = ({placeholder}: CustomInputProps) => {
     })
 
     return (
-        <TextInput onBlur={() => setFocus(false)} onFocus={() => setFocus(true)} selectionColor={'white'} placeholder={placeholder} style={styles.input} placeholderTextColor={'#B0B3C0'} />
+        <TextInput value={value} onChangeText={text => setValue(text)} onBlur={() => blur()} onFocus={() => setFocus(true)} selectionColor={'white'} placeholder={placeholder} style={styles.input} placeholderTextColor={'#B0B3C0'} />
     )
 }
