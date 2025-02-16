@@ -10,6 +10,7 @@ import { loginService } from "../../service/auth";
 import { LoginFormType } from "../../types/auth/auth";
 import { CustomButton } from "../utils/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "../../types/customs";
 
 const styles = StyleSheet.create({
     container: {
@@ -24,7 +25,7 @@ export const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState <boolean>(false);
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProps>();
 
     const login = async () => {
         setLoading(true);

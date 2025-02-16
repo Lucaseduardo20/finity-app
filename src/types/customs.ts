@@ -1,4 +1,5 @@
 import { ColorValue, DimensionValue, TextStyle } from "react-native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 
 export type CustomInputProps = {
     placeholder?: string,
@@ -23,3 +24,9 @@ export type CustomButtonType = {
     method: () => any,
     loading?: boolean
 }
+
+type RootStackParamList = {
+    home: undefined
+}
+
+export type NavigationProps = NativeStackNavigationProp<RootStackParamList>
