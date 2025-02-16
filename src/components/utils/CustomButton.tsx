@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 import { CustomText } from "./CustomText";
 import { CustomButtonType } from "../../types/customs";
 
@@ -18,7 +18,13 @@ export const CustomButton = (props: CustomButtonType) => {
 
     return (
         <TouchableOpacity onPress={props.method} style={styles.container}>
-            <CustomText style={{color: 'white', fontSize: 20, fontWeight: 600}}>{props.label}</CustomText>
+            {!props.loading ? (
+                <CustomText style={{color: 'white', fontSize: 20, fontWeight: 600}}>
+                    {props.label}
+                </CustomText>
+            ) : (
+                <ActivityIndicator size='small' color='#fff'/>
+            )}
         </TouchableOpacity>
     )
 }

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import { NativeSyntheticEvent, StyleSheet, TextInput, TextInputFocusEventData } from "react-native";
 import { CustomInputProps } from "../../types/customs";
 
-export const CustomInput = ({placeholder, value, setValue}: CustomInputProps) => {
+export const CustomInput = ({placeholder, value, setValue, isPassword = false}: CustomInputProps) => {
     const [focus, setFocus] = useState(false);
 
     const blur = () => {
@@ -26,6 +26,6 @@ export const CustomInput = ({placeholder, value, setValue}: CustomInputProps) =>
     })
 
     return (
-        <TextInput value={value} onChangeText={text => setValue(text)} onBlur={() => blur()} onFocus={() => setFocus(true)} selectionColor={'white'} placeholder={placeholder} style={styles.input} placeholderTextColor={'#B0B3C0'} />
+        <TextInput secureTextEntry={isPassword} value={value} onChangeText={text => setValue(text)} onBlur={() => blur()} onFocus={() => setFocus(true)} selectionColor={'white'} placeholder={placeholder} style={styles.input} placeholderTextColor={'#B0B3C0'} />
     )
 }

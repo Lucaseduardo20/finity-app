@@ -3,6 +3,7 @@ import { ColorValue, DimensionValue, TextStyle } from "react-native"
 export type CustomInputProps = {
     placeholder?: string,
     value: string,
+    isPassword?: boolean,
     setValue: (text: string) => void
 }
 
@@ -19,5 +20,6 @@ export type CustomButtonType = {
         labelColor: ColorValue,
     },
     label: string,
-    method: () => any
+    method: () => any,
+    loading?: boolean
 }

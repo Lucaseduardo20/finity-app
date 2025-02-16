@@ -3,12 +3,13 @@ import {
     KeyboardAvoidingView, 
     Platform, 
     StyleSheet,
-     View 
+    View,
 } from "react-native";
 import { CustomInput } from "../utils/CustomInput";
 import { loginService } from "../../service/auth";
 import { LoginFormType } from "../../types/auth/auth";
 import { CustomButton } from "../utils/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     container: {
@@ -21,10 +22,17 @@ const styles = StyleSheet.create({
 export const LoginForm = () => {
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState <boolean>(false);
+
+    const navigation = useNavigation();
 
     const login = async () => {
+        setLoading(true);
         await loginService({user, password} as LoginFormType).then((response) => {
-            alert(response.message)
+            setTimeout(() => {
+                navigation.navigate('home');
+                setLoading(false);
+            }, 1000)
         }).catch((error) => {
             alert(error);
         })
@@ -38,8 +46,9 @@ export const LoginForm = () => {
         >
             <View style={styles.container}>
                 <CustomInput value={user} setValue={setUser} placeholder="User"/>
-                <CustomInput value={password} setValue={setPassword} placeholder="Password"/>
+                <CustomInput isPassword value={password} setValue={setPassword} placeholder="Password"/>
                 <CustomButton
+                    loading={loading}
                     method={login}
                     label="Login"
                     style={{width: '100%', height: 40, background: '#00D4FF', labelColor: '#fff'}}
