@@ -26,6 +26,7 @@ export type CustomButtonType = {
 }
 
 type RootStackParamList = {
+    login: undefined,
     home: undefined
 }
 
